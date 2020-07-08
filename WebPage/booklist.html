@@ -1,0 +1,60 @@
+{% load static %}
+{% block content %}
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Book List</title>
+    <link rel="stylesheet" href="{% static 'css/booklist.css/' %}">
+    <style>
+
+		body {
+			margin: 0;
+			padding: 0;
+			background:url("{% static 'image/background.jpg/' %}");
+			background-size: cover;
+			font-family: sans-serif;
+
+		}
+
+.buttons{
+  border:none;
+  outline:none;
+  height: 40px;
+
+  color:#fff;
+  font-size:16px;
+  background: rgb(255,38,126);
+  cursor:pointer;
+  border-radius:15px;
+  padding: 10px;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+	</style>
+  </head>
+  <body>
+    <br>
+    <ul>
+      <h1>Book List</h1>
+
+      {% csrf_token %}
+      {%for key,values in  books.items %}
+      <li>
+        <div class="imagestyle">
+           <img src="{{values.bookimg}}" alt="">
+        </div>
+        <a href="/user/book/{{key}}" name="currentbook" >
+          <h3>{{values.name}}</h3>  <p>Price:  {{values.price}} </p>
+          <p>{{values.description}}</p>
+        </a>
+      </li>
+     {%endfor%}
+      <br>
+      <br>
+      <a href="/user/verify"><button type="button" name="button" class="buttons">Go to Dashboard</button></a>
+    </ul>
+
+  </body>
+</html>
+{% endblock %}

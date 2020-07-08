@@ -1,0 +1,81 @@
+{% load static %}
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>AddBook | BookBuddyWeb</title>
+	<link href="{% static 'css/addbook.css/' %}" rel="stylesheet" type="text/css" />
+  <!--link href="static/css/addbook.css" rel="stylesheet" type="text/css" /-->
+	<link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+     		background:url("{% static 'image/background.jpg/' %}");
+			background-size: cover;
+			font-family: sans-serif;
+			color: #fff;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="addbook">
+		<form method="post" action="/user/addbookdb/">
+			{% csrf_token %}
+			<h2>Add Book Details</h2>
+      <input type="text" name="bookname" placeholder="Book name">
+    	<input type="text" name="bpublication" placeholder="Publication">
+    	<input type="text" name="bauthor" placeholder="Author">
+      <select name="bcat1" placeholder="Book Catagories">
+
+        <option style="color:black" value="Reference">Reference Book</option>
+        <option style="color:black" value="Textbook">Text Book</option>
+        <option style="color:black" value="Novel">Novel</option>
+        <option style="color:black" value="Other">Other Book</option>
+      </select><br><br>
+      <input type="text" name="bprice" placeholder="Price">
+      <input type="file" name="imgpath" id="real-file" hidden="hidden" />
+      <button type="button" id="custom-button">Upload Book Images</button>
+      <span id="custom-text">No file chosen, yet.</span>
+<br><br>
+		<select name="bcat2" placeholder="Catagoreis">
+
+			<option style="color:black" value="Engineering">Engineering</option>
+			<option style="color:black" value="Medical">Medical</option>
+			<option  style="color:black" value="Other">Other</option>
+</select><br><br>
+    	<textarea  name="bdescription"rows="3" placeholder="Book Description"></textarea>
+
+<input type="text" name="phone1" placeholder="Alternate No.">
+<br><br>
+			<input type="submit" value="Add Book">
+
+
+		</form>
+	</div>
+<script type="text/javascript">
+
+const realFileBtn = document.getElementById("real-file");
+const customBtn = document.getElementById("custom-button");
+const customTxt = document.getElementById("custom-text");
+
+customBtn.addEventListener("click", function() {
+realFileBtn.click();
+});
+
+realFileBtn.addEventListener("change", function() {
+if (realFileBtn.value) {
+
+  customTxt.innerHTML = realFileBtn.value.match(
+    /[\/\\]([\w\d\s\.\-\(\)]+)$/
+  )[1];
+} else {
+  customTxt.innerHTML = "No file chosen, yet.";
+}
+});
+
+</script>
+</body>
+
+</html>
